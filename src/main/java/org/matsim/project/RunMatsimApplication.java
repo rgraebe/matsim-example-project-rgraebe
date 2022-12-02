@@ -43,6 +43,7 @@ public class RunMatsimApplication extends MATSimApplication {
 	@Override
 	protected Config prepareConfig(Config config) {
 
+		config.controler().setOutputDirectory( "ouput/equil/" );
 		config.controler().setOverwriteFileSetting( OverwriteFileSetting.deleteDirectoryIfExists );
 
 		// possibly modify config here

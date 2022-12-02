@@ -12,6 +12,7 @@ class Run31Oct22b {
 
     public static void main(String[] args) {
         Config config = ConfigUtils.loadConfig( "scenarios/equil/config.xml" );
+        config.controler().setOutputDirectory( "ouput/equil/" );
         config.controler().setOverwriteFileSetting( OutputDirectoryHierarchy.OverwriteFileSetting.deleteDirectoryIfExists );
         config.controler().setLastIteration( 2 );
 

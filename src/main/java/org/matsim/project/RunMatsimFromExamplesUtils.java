@@ -18,6 +18,7 @@ class RunMatsimFromExamplesUtils{
 		URL url = IOUtils.extendUrl( context, "config.xml" );
 
 		Config config = ConfigUtils.loadConfig( url );
+		config.controler().setOutputDirectory( "ouput/equil/" );
 		config.controler().setOverwriteFileSetting( OverwriteFileSetting.deleteDirectoryIfExists );
 
 		// ---

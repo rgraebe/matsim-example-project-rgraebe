@@ -62,9 +62,12 @@ public class RunMatsim{
 			config = ConfigUtils.loadConfig( args );
 		}
 
+		config.controler().setOutputDirectory( "ouput/equil/" );
 		config.controler().setOverwriteFileSetting( OverwriteFileSetting.deleteDirectoryIfExists );
 
 		// possibly modify config here
+
+		config.controler().setLastIteration( 5 );
 
 		// ---
 		
