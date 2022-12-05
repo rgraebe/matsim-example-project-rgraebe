@@ -85,6 +85,7 @@ public final class RunAverageEmissionToolOfflineExample {
 		ecg.setAverageWarmEmissionFactorsFile( "../sample_41_EFA_HOT_vehcat_2020average.csv" );
 
 		ecg.setDetailedVsAverageLookupBehavior( EmissionsConfigGroup.DetailedVsAverageLookupBehavior.directlyTryAverageTable );
+//		ecg.setHbefaTableConsistencyCheckingLevel( EmissionsConfigGroup.HbefaTableConsistencyCheckingLevel.none );
 
 		ecg.setNonScenarioVehicles( EmissionsConfigGroup.NonScenarioVehicles.abort );
 
@@ -193,23 +194,27 @@ public final class RunAverageEmissionToolOfflineExample {
 				}
 				bw1.newLine();
 			}
-
 			bw1.close();
-			double CO2 = 0;
-			double CO = 0;
-			double NOx = 0;
-			for ( Id<Link> link : link2pollutants.keySet() ) {
-				CO2 = CO2 + link2pollutants.get( link ).get( Pollutant.CO2_TOTAL );
-				CO = CO + link2pollutants.get( link ).get( Pollutant.CO );
-				NOx = NOx + link2pollutants.get( link ).get( Pollutant.NOx );
-			}
-			log.info("CO2 [g]: " + CO2);
-			log.info("CO [g]: " + CO);
-			log.info("NOx [g]: " + NOx);
-			log.info("Output written to " + config.controler().getOutputDirectory());
-			log.info("-------------------------------------------------");
+			writeOutputReport( config.controler().getOutputDirectory(), link2pollutants );
 		}
+	}
 
+	private static void writeOutputReport( String outputDirectoryName, Map<Id<Link>, Map<Pollutant, Double>> link2pollutants ) {
+		double CO2 = 0;
+		double CO = 0;
+		double NOx = 0;
+		for ( Id<Link> link : link2pollutants.keySet() ) {
+			CO2 = CO2 + link2pollutants.get( link ).get( Pollutant.CO2_TOTAL );
+			CO = CO + link2pollutants.get( link ).get( Pollutant.CO );
+			NOx = NOx + link2pollutants.get( link ).get( Pollutant.NOx );
+		}
+		System.out.println("");
+		log.info("--------------------- REPORT --------------------");
+		log.info("CO2 [g]: " + CO2 );
+		log.info("CO [g]: " + CO );
+		log.info("NOx [g]: " + NOx );
+		log.info("Output written to " + outputDirectoryName);
+		log.info("-------------------------------------------------");
 	}
 
 }
