@@ -82,7 +82,8 @@ public final class RunAverageEmissionToolOfflineExample {
 		EmissionsConfigGroup ecg = ConfigUtils.addOrGetModule( config, EmissionsConfigGroup.class );
 
 		ecg.setAverageColdEmissionFactorsFile( "../sample_EFA_ColdStart_vehcat_2020_average_withHGVetc.csv" );
-		ecg.setAverageWarmEmissionFactorsFile( "../sample_41_EFA_HOT_vehcat_2020average.csv" );
+//		ecg.setAverageWarmEmissionFactorsFile( "../sample_41_EFA_HOT_vehcat_2020average.csv" );
+		ecg.setAverageWarmEmissionFactorsFile( "../EFA_HOT_Vehcat_avg_demo_all_gradients.csv" );
 
 		ecg.setDetailedVsAverageLookupBehavior( EmissionsConfigGroup.DetailedVsAverageLookupBehavior.directlyTryAverageTable );
 //		ecg.setHbefaTableConsistencyCheckingLevel( EmissionsConfigGroup.HbefaTableConsistencyCheckingLevel.none );
@@ -90,7 +91,8 @@ public final class RunAverageEmissionToolOfflineExample {
 		ecg.setNonScenarioVehicles( EmissionsConfigGroup.NonScenarioVehicles.abort );
 
 //		ecg.setEmissionsComputationMethod( EmissionsConfigGroup.EmissionsComputationMethod.AverageSpeed );
-		ecg.setEmissionsComputationMethod( EmissionsConfigGroup.EmissionsComputationMethod.StopAndGoFraction );
+//		ecg.setEmissionsComputationMethod( EmissionsConfigGroup.EmissionsComputationMethod.StopAndGoFraction );
+		ecg.setEmissionsComputationMethod( EmissionsConfigGroup.EmissionsComputationMethod.StopAndGo2Fraction );
 
 		// ---
 
@@ -155,6 +157,7 @@ public final class RunAverageEmissionToolOfflineExample {
 
 
 		{ // writing emissions (per link) per meter
+			// *** tweaked for example scenario output
 
 //			String linkEmissionPerMOutputFile = config.controler().getOutputDirectory() + "output.emissionsPerLinkPerM.csv";
 			String linkEmissionsOutputFile = config.controler().getOutputDirectory() + "output.emissionsPerLink.csv";
