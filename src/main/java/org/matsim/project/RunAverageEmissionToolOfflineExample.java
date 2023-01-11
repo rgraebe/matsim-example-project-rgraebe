@@ -98,6 +98,11 @@ public final class RunAverageEmissionToolOfflineExample {
 
 		Scenario scenario = ScenarioUtils.loadScenario( config ) ;
 
+		// TODO Tim's work
+//		for ( Link link : scenario.getNetwork().getLinks().values() ) {
+//			link.getAttributes().putAttribute( "road_grade", "-6%" );
+//		}
+
 		// examples for how to set attributes to links and vehicles in order to make this work (already there for example scenario):
 
 //		for( Link link : scenario.getNetwork().getLinks().values() ){
