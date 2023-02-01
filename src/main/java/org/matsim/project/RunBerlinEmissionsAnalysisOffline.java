@@ -24,10 +24,7 @@ import org.apache.logging.log4j.Logger;
 import org.matsim.api.core.v01.Id;
 import org.matsim.api.core.v01.Scenario;
 import org.matsim.api.core.v01.network.Link;
-import org.matsim.contrib.emissions.EmissionModule;
-import org.matsim.contrib.emissions.HbefaVehicleCategory;
-import org.matsim.contrib.emissions.Pollutant;
-import org.matsim.contrib.emissions.VspHbefaRoadTypeMapping;
+import org.matsim.contrib.emissions.*;
 import org.matsim.contrib.emissions.analysis.EmissionsOnLinkEventHandler;
 import org.matsim.contrib.emissions.example.CreateEmissionConfig;
 import org.matsim.contrib.emissions.utils.EmissionsConfigGroup;
@@ -97,7 +94,7 @@ public final class RunBerlinEmissionsAnalysisOffline {
 
 		ecg.setAverageColdEmissionFactorsFile( "../../sampleScenario/sample_EFA_ColdStart_vehcat_2020_average_withHGVetc.csv" );
 //		ecg.setAverageWarmEmissionFactorsFile( "../../sampleScenario/sample_41_EFA_HOT_vehcat_2020average.csv" );
-		ecg.setAverageWarmEmissionFactorsFile( "../../sampleScenario/EFA_HOT_Vehcat_avg_demo_all_gradients.csv" );
+		ecg.setAverageWarmEmissionFactorsFile( "../../sampleScenario/EFA_HOT_Vehcat_avg_demo_all_gradients.csv" ); // to test StopAndGo2
 
 		ecg.setDetailedVsAverageLookupBehavior( EmissionsConfigGroup.DetailedVsAverageLookupBehavior.directlyTryAverageTable );
 //		ecg.setHbefaTableConsistencyCheckingLevel( EmissionsConfigGroup.HbefaTableConsistencyCheckingLevel.none );
@@ -116,7 +113,14 @@ public final class RunBerlinEmissionsAnalysisOffline {
 
 		// network
 
-		new VspHbefaRoadTypeMapping().addHbefaMappings( scenario.getNetwork() );
+		// temporary solution because these are the only traffic situations in the demo hbefa warm file.
+		for ( Link link : scenario.getNetwork().getLinks().values() ) {
+//			var freespeed = link.getFreespeed() <= 13.888889 ? link.getFreespeed() * 2 : link.getFreespeed();
+//			if (freespeed < 17) { // ±70km/h
+//				EmissionUtils.setHbefaRoadType( link, "URB/Local/50" );
+//			} else { EmissionUtils.setHbefaRoadType( link, "RUR/Trunk/80" ); }
+			EmissionUtils.setHbefaRoadType( link, "URB/Local/50" );
+		}
 
 		// TODO Tim's work
 //		for ( Link link : scenario.getNetwork().getLinks().values() ) {
